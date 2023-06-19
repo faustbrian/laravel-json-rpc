@@ -8,7 +8,6 @@ use BombenProdukt\JsonRpc\Model\Error;
 use BombenProdukt\JsonRpc\Model\RequestObject;
 use BombenProdukt\JsonRpc\Model\Response;
 use Illuminate\Http\Client\PendingRequest;
-use Illuminate\Http\Client\Response as ClientResponse;
 use Illuminate\Support\Facades\Http;
 
 final class Client
@@ -46,36 +45,51 @@ final class Client
         return $this;
     }
 
-    public function request(): Response
+    /**
+     * @return list<Response>|Response
+     */
+    public function request(): array|Response
     {
-        return $this->transform(
-            $this->client->post(
-                '/',
-                \count($this->batch) === 1 ? $this->batch[0] : $this->batch,
-            ),
+        $response = $this->client->post(
+            '/',
+            $this->isBatch() ? $this->batch : $this->batch[0],
         );
+
+        if ($this->isBatch()) {
+            return \array_map(
+                fn (array $response) => $this->transform($response),
+                $response->json(),
+            );
+        }
+
+        return $this->transform($response->json());
     }
 
-    private function transform(ClientResponse $response): Response
+    private function transform(array $response): Response
     {
-        if ($response->json('error') !== null) {
+        if ($response['error'] !== null) {
             return new Response(
-                jsonrpc: $response->json('jsonrpc'),
-                id: $response->json('id'),
+                jsonrpc: $response['jsonrpc'],
+                id: $response['id'],
                 result: null,
                 error: new Error(
-                    code: $response->json('error.code'),
-                    message: $response->json('error.message'),
-                    data: $response->json('error.data'),
+                    code: $response['error']['code'],
+                    message: $response['error']['message'],
+                    data: $response['error']['data'] ?? null,
                 ),
             );
         }
 
         return new Response(
-            jsonrpc: $response->json('jsonrpc'),
-            id: $response->json('id'),
-            result: $response->json('result'),
+            jsonrpc: $response['jsonrpc'],
+            id: $response['id'],
+            result: $response['result'],
             error: null,
         );
+    }
+
+    private function isBatch(): bool
+    {
+        return \count($this->batch) > 1;
     }
 }
