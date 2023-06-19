@@ -33,7 +33,7 @@ final class HandleRequest
 
                         $procedure = Server::getProcedureRepository()->get(
                             $requestObject->getMethod(),
-                            Arr::get($headers, 'X-JSON-RPC-Method-Version', '1.0.0'),
+                            Arr::get($headers, 'X-JSON-RPC-Procedure-Version', '1.0.0'),
                         );
 
                         if ($requestObject->isNotification()) {
