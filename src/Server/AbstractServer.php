@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BombenProdukt\JsonRpc\Server;
 
+use BombenProdukt\JsonRpc\Http\Middleware\BootServer;
 use BombenProdukt\JsonRpc\Procedure\ProcedureRepository;
 
 abstract class AbstractServer implements ServerInterface
@@ -15,9 +16,14 @@ abstract class AbstractServer implements ServerInterface
         $this->procedureRepository = new ProcedureRepository($this->procedures());
     }
 
-    public function getEntryPoint(): string
+    public function getRoutePath(): string
     {
         return '/';
+    }
+
+    public function getRouteName(): string
+    {
+        return 'json-rpc.v1';
     }
 
     public function getVersion(): string
@@ -27,7 +33,9 @@ abstract class AbstractServer implements ServerInterface
 
     public function getMiddleware(): array
     {
-        return [];
+        return [
+            BootServer::class,
+        ];
     }
 
     public function getProcedureRepository(): ProcedureRepository

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace BombenProdukt\JsonRpc\Mixin;
 
 use BombenProdukt\JsonRpc\Http\Controller\ProcedureController;
-use BombenProdukt\JsonRpc\Http\Middleware\BootServer;
 use BombenProdukt\JsonRpc\Server\ServerInterface;
 use Closure;
 use Illuminate\Support\Facades\App;
@@ -22,11 +21,9 @@ final class RouteMixin
             /** @var ServerInterface $server */
             $server = App::make($server);
 
-            Route::post($server->getEntryPoint(), ProcedureController::class)
-                ->middleware([
-                    ...$server->getMiddleware(),
-                    BootServer::class,
-                ]);
+            Route::post($server->getRoutePath(), ProcedureController::class)
+                ->name($server->getRouteName())
+                ->middleware($server->getMiddleware());
         };
     }
 }

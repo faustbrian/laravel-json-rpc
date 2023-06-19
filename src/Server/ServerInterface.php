@@ -8,7 +8,9 @@ use BombenProdukt\JsonRpc\Procedure\ProcedureRepository;
 
 interface ServerInterface
 {
-    public function getEntryPoint(): string;
+    public function getRoutePath(): string;
+
+    public function getRouteName(): string;
 
     public function getVersion(): string;
 
