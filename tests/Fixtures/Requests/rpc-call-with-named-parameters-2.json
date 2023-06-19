@@ -1,0 +1,6 @@
+{
+  "jsonrpc": "2.0",
+  "method": "subtract_with_binding",
+  "params": { "minuend": 42, "subtrahend": 23 },
+  "id": 4
+}

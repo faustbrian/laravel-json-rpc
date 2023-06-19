@@ -1,0 +1,111 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method BombenProdukt\\\\JsonRpc\\\\Action\\\\HandleRequest\\:\\:execute\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Action/HandleRequest.php
+
+		-
+			message: "#^Parameter \\#2 \\$version of method BombenProdukt\\\\JsonRpc\\\\Procedure\\\\ProcedureRepository\\:\\:get\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: src/Action/HandleRequest.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of static method Illuminate\\\\Support\\\\Arr\\:\\:isAssoc\\(\\) expects array, mixed given\\.$#"
+			count: 1
+			path: src/Action/ParseRequestBody.php
+
+		-
+			message: "#^Parameter \\#1 \\$requestObject of static method BombenProdukt\\\\JsonRpc\\\\Model\\\\Request\\:\\:fromRequestObject\\(\\) expects array, mixed given\\.$#"
+			count: 1
+			path: src/Action/ParseRequestBody.php
+
+		-
+			message: "#^Parameter \\#1 \\$requestObjects of static method BombenProdukt\\\\JsonRpc\\\\Model\\\\Request\\:\\:fromRequestObjectBatch\\(\\) expects array, mixed given\\.$#"
+			count: 1
+			path: src/Action/ParseRequestBody.php
+
+		-
+			message: "#^Parameter \\$code of class BombenProdukt\\\\JsonRpc\\\\Model\\\\Error constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/Client/Client.php
+
+		-
+			message: "#^Parameter \\$jsonrpc of class BombenProdukt\\\\JsonRpc\\\\Model\\\\Response constructor expects string, mixed given\\.$#"
+			count: 2
+			path: src/Client/Client.php
+
+		-
+			message: "#^Parameter \\$message of class BombenProdukt\\\\JsonRpc\\\\Model\\\\Error constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/Client/Client.php
+
+		-
+			message: "#^Method BombenProdukt\\\\JsonRpc\\\\Exception\\\\AbstractRequestException\\:\\:getErrorCode\\(\\) should return int but returns int\\|null\\.$#"
+			count: 1
+			path: src/Exception/AbstractRequestException.php
+
+		-
+			message: "#^Method BombenProdukt\\\\JsonRpc\\\\Exception\\\\AbstractRequestException\\:\\:getErrorMessage\\(\\) should return string but returns string\\|null\\.$#"
+			count: 1
+			path: src/Exception/AbstractRequestException.php
+
+		-
+			message: "#^Parameter \\#1 \\$callback of static method Illuminate\\\\Support\\\\Facades\\\\App\\:\\:call\\(\\) expects \\(callable\\(\\)\\: mixed\\)\\|string, array\\{BombenProdukt\\\\JsonRpc\\\\Procedure\\\\ProcedureInterface, 'handle'\\} given\\.$#"
+			count: 1
+			path: src/Job/CallProcedure.php
+
+		-
+			message: "#^Class BombenProdukt\\\\JsonRpc\\\\Model\\\\Error implements generic interface Illuminate\\\\Contracts\\\\Support\\\\Arrayable but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Model/Error.php
+
+		-
+			message: "#^Class BombenProdukt\\\\JsonRpc\\\\Model\\\\RequestObject implements generic interface Illuminate\\\\Contracts\\\\Support\\\\Arrayable but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Model/RequestObject.php
+
+		-
+			message: "#^Class BombenProdukt\\\\JsonRpc\\\\Model\\\\Response implements generic interface Illuminate\\\\Contracts\\\\Support\\\\Arrayable but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Model/Response.php
+
+		-
+			message: "#^Method BombenProdukt\\\\JsonRpc\\\\Server\\\\AbstractServer\\:\\:procedures\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Server/AbstractServer.php
+
+		-
+			message: "#^Method BombenProdukt\\\\JsonRpc\\\\Server\\\\ServerRepository\\:\\:findByVersion\\(\\) should return BombenProdukt\\\\JsonRpc\\\\Server\\\\ServerInterface but returns mixed\\.$#"
+			count: 1
+			path: src/Server/ServerRepository.php
+
+		-
+			message: "#^Property BombenProdukt\\\\JsonRpc\\\\Server\\\\ServerRepository\\:\\:\\$servers with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Server/ServerRepository.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Foundation\\\\Application\\:\\:\\$config\\.$#"
+			count: 1
+			path: src/ServiceProvider.php
+
+		-
+			message: "#^Parameter \\#1 \\$filename of function file_get_contents expects string, string\\|false given\\.$#"
+			count: 2
+			path: src/Test/ProcedureCaller.php
+
+		-
+			message: "#^Parameter \\#1 \\$json of function json_decode expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/Test/ProcedureCaller.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of method Illuminate\\\\Testing\\\\TestResponse\\:\\:assertJson\\(\\) expects array\\|\\(callable\\(\\)\\: mixed\\), mixed given\\.$#"
+			count: 1
+			path: src/Test/ProcedureCaller.php
+
+		-
+			message: "#^Parameter \\#7 \\$content of function Pest\\\\Laravel\\\\call expects string\\|null, string\\|false given\\.$#"
+			count: 1
+			path: src/Test/ProcedureCaller.php
