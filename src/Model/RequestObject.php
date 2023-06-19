@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BombenProdukt\JsonRpc\Model;
 
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Str;
 use JsonSerializable;
 
 final readonly class RequestObject implements Arrayable, JsonSerializable
@@ -26,6 +27,16 @@ final readonly class RequestObject implements Arrayable, JsonSerializable
             $data['params'] ?? null,
             $data['id'] ?? null,
         );
+    }
+
+    public static function asRequest(string $method, ?array $params = null, mixed $id = null): self
+    {
+        return new self('2.0', $method, $params, $id ?? Str::uuid());
+    }
+
+    public static function asNotification(string $method, ?array $params = null): self
+    {
+        return new self('2.0', $method, $params, null);
     }
 
     public function getJsonrpc(): string
