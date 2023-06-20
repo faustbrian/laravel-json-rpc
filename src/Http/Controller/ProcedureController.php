@@ -12,13 +12,8 @@ use Illuminate\Support\Facades\Response;
 
 final class ProcedureController extends Controller
 {
-    public function __invoke(Request $request, HandleRequest $handler): JsonResponse
+    public function __invoke(Request $request, HandleRequest $requestHandler): JsonResponse
     {
-        /**
-         * @var array<string, string> $headers
-         */
-        $headers = $request->headers->all();
-
-        return Response::json($handler->execute($request->getContent(), $headers));
+        return Response::json($requestHandler->execute($request));
     }
 }

@@ -6,11 +6,6 @@ parameters:
 			path: src/Action/HandleRequest.php
 
 		-
-			message: "#^Parameter \\#2 \\$version of method BombenProdukt\\\\JsonRpc\\\\Procedure\\\\ProcedureRepository\\:\\:get\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: src/Action/HandleRequest.php
-
-		-
 			message: "#^Parameter \\#1 \\$array of static method Illuminate\\\\Support\\\\Arr\\:\\:isAssoc\\(\\) expects array, mixed given\\.$#"
 			count: 1
 			path: src/Action/ParseRequestBody.php

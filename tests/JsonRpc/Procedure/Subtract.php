@@ -9,8 +9,8 @@ use BombenProdukt\JsonRpc\Procedure\AbstractProcedure;
 
 final class Subtract extends AbstractProcedure
 {
-    public function handle(RequestObject $request): int
+    public function handle(RequestObject $requestObject): int
     {
-        return $request->getParams()[0] - $request->getParams()[1];
+        return $requestObject->getParams()[0] - $requestObject->getParams()[1];
     }
 }

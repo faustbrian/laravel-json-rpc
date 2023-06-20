@@ -10,10 +10,8 @@ use BombenProdukt\JsonRpc\Exception\RequestExceptionInterface;
 use BombenProdukt\JsonRpc\Model\RequestObject;
 use BombenProdukt\JsonRpc\Model\Response;
 use BombenProdukt\JsonRpc\Procedure\ProcedureInterface;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Http\Request;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
@@ -23,16 +21,15 @@ use ReflectionClass;
 use ReflectionParameter;
 use Throwable;
 
-final class CallProcedure implements ShouldQueue
+final class CallProcedure
 {
     use Dispatchable;
-    use InteractsWithQueue;
-    use Queueable;
     use SerializesModels;
 
     public function __construct(
         private readonly ProcedureInterface $procedure,
-        private readonly RequestObject $request,
+        private readonly Request $request,
+        private readonly RequestObject $requestObject,
     ) {}
 
     public function handle(): Response
@@ -42,23 +39,24 @@ final class CallProcedure implements ShouldQueue
                 [$this->procedure, 'handle'],
                 [
                     'request' => $this->request,
+                    'requestObject' => $this->requestObject,
                     ...$this->resolveParameters(
                         $this->procedure,
-                        $this->request->getParams(),
+                        $this->requestObject->getParams(),
                     ),
                 ],
             );
 
             return new Response(
-                $this->request->getJsonrpc(),
-                $this->request->getId(),
+                $this->requestObject->getJsonrpc(),
+                $this->requestObject->getId(),
                 $result,
             );
         } catch (Throwable $exception) {
             if ($exception instanceof ValidationException) {
                 return new Response(
                     jsonrpc: '2.0',
-                    id: $this->request->getId(),
+                    id: $this->requestObject->getId(),
                     error: InvalidParamsException::fromValidationException($exception)->toError(),
                     result: null,
                 );
@@ -67,7 +65,7 @@ final class CallProcedure implements ShouldQueue
             if ($exception instanceof RequestExceptionInterface) {
                 return new Response(
                     jsonrpc: '2.0',
-                    id: $this->request->getId(),
+                    id: $this->requestObject->getId(),
                     error: $exception->toError(),
                     result: null,
                 );
@@ -75,7 +73,7 @@ final class CallProcedure implements ShouldQueue
 
             return new Response(
                 jsonrpc: '2.0',
-                id: $this->request->getId(),
+                id: $this->requestObject->getId(),
                 result: null,
                 error: InternalErrorException::fromThrowable($exception)->toError(),
             );

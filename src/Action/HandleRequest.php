@@ -9,6 +9,7 @@ use BombenProdukt\JsonRpc\Job\CallProcedure;
 use BombenProdukt\JsonRpc\Model\RequestObject;
 use BombenProdukt\JsonRpc\Model\Response;
 use BombenProdukt\JsonRpc\Server\Server;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Throwable;
 
@@ -19,13 +20,13 @@ final class HandleRequest
         private readonly ValidateRequestBody $validateRequestBody,
     ) {}
 
-    public function execute(string $content, array $headers)
+    public function execute(Request $request)
     {
         try {
-            $request = $this->parseRequestBody->execute($content);
+            $requestBody = $this->parseRequestBody->execute($request->getContent());
 
-            $responses = collect($request->getRequestObjects())
-                ->map(function (mixed $requestObject) use ($headers): mixed {
+            $responses = collect($requestBody->getRequestObjects())
+                ->map(function (mixed $requestObject) use ($request): mixed {
                     try {
                         $this->validateRequestBody->execute($requestObject);
 
@@ -33,16 +34,16 @@ final class HandleRequest
 
                         $procedure = Server::getProcedureRepository()->get(
                             $requestObject->getMethod(),
-                            Arr::get($headers, 'X-JSON-RPC-Procedure-Version', '1.0.0'),
+                            $request->header('X-JSON-RPC-Procedure-Version', '1.0.0'),
                         );
 
                         if ($requestObject->isNotification()) {
-                            CallProcedure::dispatchAfterResponse($procedure, $requestObject);
+                            CallProcedure::dispatchAfterResponse($procedure, $request, $requestObject);
 
                             return Response::asNotification();
                         }
 
-                        return (new CallProcedure($procedure, $requestObject))->handle();
+                        return (new CallProcedure($procedure, $request, $requestObject))->handle();
                     } catch (Throwable $exception) {
                         if ($exception instanceof RequestExceptionInterface) {
                             return new Response(
@@ -63,7 +64,7 @@ final class HandleRequest
                 return [];
             }
 
-            if ($request->isBatch()) {
+            if ($requestBody->isBatch()) {
                 return $responses;
             }
 
