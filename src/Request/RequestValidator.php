@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace BombenProdukt\JsonRpc\Action;
+namespace BombenProdukt\JsonRpc\Request;
 
 use BombenProdukt\JsonRpc\Exception\InvalidRequestException;
 use BombenProdukt\JsonRpc\Rule\Identifier;
 use Illuminate\Support\Facades\Validator;
 
-final class ValidateRequestBody
+final class RequestValidator implements RequestValidatorInterface
 {
-    public function execute(mixed $data): void
+    public function validate(mixed $data): void
     {
         if (!\is_array($data)) {
             throw new InvalidRequestException();

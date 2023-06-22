@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace BombenProdukt\JsonRpc\Action;
+namespace BombenProdukt\JsonRpc\Request;
 
 use BombenProdukt\JsonRpc\Exception\RequestExceptionInterface;
 use BombenProdukt\JsonRpc\Job\CallProcedure;
@@ -11,24 +11,25 @@ use BombenProdukt\JsonRpc\Model\Response;
 use BombenProdukt\JsonRpc\Server\Server;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Throwable;
 
-final class HandleRequest
+final class RequestHandler implements RequestHandlerInterface
 {
     public function __construct(
-        private readonly ParseRequestBody $parseRequestBody,
-        private readonly ValidateRequestBody $validateRequestBody,
+        private readonly RequestParserInterface $parser,
+        private readonly RequestValidatorInterface $validator,
     ) {}
 
-    public function execute(Request $request)
+    public function handle(Request $request): Collection|Response
     {
         try {
-            $requestBody = $this->parseRequestBody->execute($request->getContent());
+            $requestBody = $this->parser->parse($request->getContent());
 
             $responses = collect($requestBody->getRequestObjects())
                 ->map(function (mixed $requestObject) use ($request): mixed {
                     try {
-                        $this->validateRequestBody->execute($requestObject);
+                        $this->validator->validate($requestObject);
 
                         $requestObject = RequestObject::fromArray($requestObject);
 
@@ -61,7 +62,7 @@ final class HandleRequest
                 ->values();
 
             if ($responses->isEmpty()) {
-                return [];
+                return $responses;
             }
 
             if ($requestBody->isBatch()) {

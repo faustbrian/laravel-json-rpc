@@ -1,26 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Method BombenProdukt\\\\JsonRpc\\\\Action\\\\HandleRequest\\:\\:execute\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Action/HandleRequest.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of static method Illuminate\\\\Support\\\\Arr\\:\\:isAssoc\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: src/Action/ParseRequestBody.php
-
-		-
-			message: "#^Parameter \\#1 \\$requestObject of static method BombenProdukt\\\\JsonRpc\\\\Model\\\\Request\\:\\:fromRequestObject\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: src/Action/ParseRequestBody.php
-
-		-
-			message: "#^Parameter \\#1 \\$requestObjects of static method BombenProdukt\\\\JsonRpc\\\\Model\\\\Request\\:\\:fromRequestObjectBatch\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: src/Action/ParseRequestBody.php
-
-		-
 			message: "#^Parameter \\#1 \\$callback of function array_map expects \\(callable\\(mixed\\)\\: mixed\\)\\|null, Closure\\(array\\)\\: BombenProdukt\\\\JsonRpc\\\\Model\\\\Response given\\.$#"
 			count: 1
 			path: src/Client/Client.php
@@ -64,6 +44,36 @@ parameters:
 			message: "#^Class BombenProdukt\\\\JsonRpc\\\\Model\\\\Response implements generic interface Illuminate\\\\Contracts\\\\Support\\\\Arrayable but does not specify its types\\: TKey, TValue$#"
 			count: 1
 			path: src/Model/Response.php
+
+		-
+			message: "#^Method BombenProdukt\\\\JsonRpc\\\\Request\\\\RequestHandler\\:\\:handle\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Request/RequestHandler.php
+
+		-
+			message: "#^Method BombenProdukt\\\\JsonRpc\\\\Request\\\\RequestHandler\\:\\:handle\\(\\) should return BombenProdukt\\\\JsonRpc\\\\Model\\\\Response\\|Illuminate\\\\Support\\\\Collection but returns BombenProdukt\\\\JsonRpc\\\\Model\\\\Response\\|null\\.$#"
+			count: 1
+			path: src/Request/RequestHandler.php
+
+		-
+			message: "#^Method BombenProdukt\\\\JsonRpc\\\\Request\\\\RequestHandlerInterface\\:\\:handle\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Request/RequestHandlerInterface.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of static method Illuminate\\\\Support\\\\Arr\\:\\:isAssoc\\(\\) expects array, mixed given\\.$#"
+			count: 1
+			path: src/Request/RequestParser.php
+
+		-
+			message: "#^Parameter \\#1 \\$requestObject of static method BombenProdukt\\\\JsonRpc\\\\Model\\\\Request\\:\\:fromRequestObject\\(\\) expects array, mixed given\\.$#"
+			count: 1
+			path: src/Request/RequestParser.php
+
+		-
+			message: "#^Parameter \\#1 \\$requestObjects of static method BombenProdukt\\\\JsonRpc\\\\Model\\\\Request\\:\\:fromRequestObjectBatch\\(\\) expects array, mixed given\\.$#"
+			count: 1
+			path: src/Request/RequestParser.php
 
 		-
 			message: "#^Method BombenProdukt\\\\JsonRpc\\\\Server\\\\AbstractServer\\:\\:procedures\\(\\) has no return type specified\\.$#"

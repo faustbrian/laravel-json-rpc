@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace BombenProdukt\JsonRpc\Action;
+namespace BombenProdukt\JsonRpc\Request;
 
 use BombenProdukt\JsonRpc\Exception\InvalidRequestException;
 use BombenProdukt\JsonRpc\Exception\ParseErrorException;
@@ -10,9 +10,9 @@ use BombenProdukt\JsonRpc\Model\Request;
 use Illuminate\Support\Arr;
 use Throwable;
 
-final class ParseRequestBody
+final class RequestParser implements RequestParserInterface
 {
-    public function execute(string $json): Request
+    public function parse(string $json): Request
     {
         try {
             $requestObjects = \json_decode($json, true, 512, \JSON_THROW_ON_ERROR);
