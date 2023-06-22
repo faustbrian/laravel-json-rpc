@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 
+<a name="1.2.0"></a>
+## [1.2.0] - 2023-06-22
+### Changed
+- Refactored actions into container-bound classes
+
+
 <a name="1.1.0"></a>
 ## [1.1.0] - 2023-06-20
 ### Changed
@@ -34,7 +40,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 <a name="1.0.0"></a>
 ## 1.0.0 - 2023-06-19
 
-[Unreleased]: https://github.com/BombenProdukt/package_slug/compare/1.1.0...HEAD
+[Unreleased]: https://github.com/BombenProdukt/package_slug/compare/1.2.0...HEAD
+[1.2.0]: https://github.com/BombenProdukt/package_slug/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/BombenProdukt/package_slug/compare/1.0.4...1.1.0
 [1.0.4]: https://github.com/BombenProdukt/package_slug/compare/1.0.1...1.0.4
 [1.0.1]: https://github.com/BombenProdukt/package_slug/compare/1.0.0...1.0.1
