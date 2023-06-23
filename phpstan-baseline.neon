@@ -16,16 +16,6 @@ parameters:
 			path: src/Client/Client.php
 
 		-
-			message: "#^Method BombenProdukt\\\\JsonRpc\\\\Exception\\\\AbstractRequestException\\:\\:getErrorCode\\(\\) should return int but returns int\\|null\\.$#"
-			count: 1
-			path: src/Exception/AbstractRequestException.php
-
-		-
-			message: "#^Method BombenProdukt\\\\JsonRpc\\\\Exception\\\\AbstractRequestException\\:\\:getErrorMessage\\(\\) should return string but returns string\\|null\\.$#"
-			count: 1
-			path: src/Exception/AbstractRequestException.php
-
-		-
 			message: "#^Parameter \\#1 \\$callback of static method Illuminate\\\\Support\\\\Facades\\\\App\\:\\:call\\(\\) expects \\(callable\\(\\)\\: mixed\\)\\|string, array\\{BombenProdukt\\\\JsonRpc\\\\Procedure\\\\ProcedureInterface, 'handle'\\} given\\.$#"
 			count: 1
 			path: src/Job/CallProcedure.php

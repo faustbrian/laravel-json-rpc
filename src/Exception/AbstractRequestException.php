@@ -6,6 +6,7 @@ namespace BombenProdukt\JsonRpc\Exception;
 
 use BombenProdukt\JsonRpc\Model\Error;
 use Exception;
+use Illuminate\Support\Facades\App;
 
 abstract class AbstractRequestException extends Exception implements RequestExceptionInterface
 {
@@ -22,12 +23,12 @@ abstract class AbstractRequestException extends Exception implements RequestExce
 
     public function getErrorCode(): int
     {
-        return $this->errorCode;
+        return $this->errorCode ?? $this->code;
     }
 
     public function getErrorMessage(): string
     {
-        return $this->errorMessage;
+        return $this->errorMessage ?? $this->message;
     }
 
     public function getErrorData(): mixed
@@ -42,10 +43,20 @@ abstract class AbstractRequestException extends Exception implements RequestExce
 
     public function toArray(): array
     {
-        return collect([
+        $message = [
             'code' => $this->getErrorCode(),
             'message' => $this->getErrorMessage(),
             'data' => $this->getErrorData(),
-        ])->filter()->toArray();
+        ];
+
+        if (App::hasDebugModeEnabled()) {
+            $message['debug'] = [
+                'file' => $this->getFile(),
+                'line' => $this->getLine(),
+                'trace' => $this->getTraceAsString(),
+            ];
+        }
+
+        return $message;
     }
 }
