@@ -6,6 +6,7 @@ namespace BombenProdukt\JsonRpc\Exception;
 
 use BombenProdukt\JsonRpc\Model\Error;
 use Exception;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
 
 abstract class AbstractRequestException extends Exception implements RequestExceptionInterface
@@ -50,11 +51,15 @@ abstract class AbstractRequestException extends Exception implements RequestExce
         ];
 
         if (App::hasDebugModeEnabled()) {
-            $message['debug'] = [
-                'file' => $this->getFile(),
-                'line' => $this->getLine(),
-                'trace' => $this->getTraceAsString(),
-            ];
+            Arr::set(
+                $message,
+                'data.debug',
+                [
+                    'file' => $this->getFile(),
+                    'line' => $this->getLine(),
+                    'trace' => $this->getTraceAsString(),
+                ],
+            );
         }
 
         return $message;
