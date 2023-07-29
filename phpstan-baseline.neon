@@ -16,6 +16,11 @@ parameters:
 			path: src/Client/Client.php
 
 		-
+			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
+			count: 1
+			path: src/Job/CallProcedure.php
+
+		-
 			message: "#^Parameter \\#1 \\$callback of static method Illuminate\\\\Support\\\\Facades\\\\App\\:\\:call\\(\\) expects \\(callable\\(\\)\\: mixed\\)\\|string, array\\{BombenProdukt\\\\JsonRpc\\\\Procedure\\\\ProcedureInterface, 'handle'\\} given\\.$#"
 			count: 1
 			path: src/Job/CallProcedure.php
@@ -49,6 +54,11 @@ parameters:
 			message: "#^Method BombenProdukt\\\\JsonRpc\\\\Request\\\\RequestHandlerInterface\\:\\:handle\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
 			count: 1
 			path: src/Request/RequestHandlerInterface.php
+
+		-
+			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
+			count: 1
+			path: src/Request/RequestParser.php
 
 		-
 			message: "#^Parameter \\#1 \\$array of static method Illuminate\\\\Support\\\\Arr\\:\\:isAssoc\\(\\) expects array, mixed given\\.$#"
